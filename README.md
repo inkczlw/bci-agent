@@ -86,11 +86,3 @@ Run the agent:
 ```bash
 python main.py
 ```
-
----
-
-## Project Context
-
-Built as a technical portfolio project during AI Agent Engineer interview preparation. The BCI domain is used as a realistic multi-source analysis scenario (company data, news, research papers) — the engineering patterns demonstrated here are domain-agnostic.
-
-The author brings prior background in C++ systems engineering (multithreading, concurrency, dependency DAG) and NLG pipeline development (data-to-text, prompt optimization), now applied to LLM Agent system design.
