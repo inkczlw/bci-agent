@@ -56,31 +56,31 @@ def main():
     #     run_conversation(agent, memory_s, q)
 
     # ── 3. Entity Memory ──────────────────────────────────────
-    # entity_mem = EntityMemory(llm=llm)
-    # memory_e = ConversationMemory(max_turns=10)
-    # for q in [
-    #     "介绍一下 Neuralink",
-    #     "BrainCo 和它比怎么样？",
-    #     "Synchron 呢？",
-    #     "这三家公司里谁最有可能上市？",
-    # ]:
-    #     print(f"\n{'='*60}")
-    #     print(f"用户: {q}")
-    #     print(f"{'='*60}")
-    #     entity_context = entity_mem.get_relevant_context(q)
-    #     augmented_query = f"{q}\n\n[背景参考]\n{entity_context}" if entity_context else q
-    #     memory_e.add_user_message(augmented_query)
-    #     result = agent.invoke({
-    #         "messages": [
-    #             {"role": _get_role(m), "content": m.content}
-    #             for m in memory_e.get_messages()
-    #         ]
-    #     })
-    #     ai_response = result["messages"][-1].content
-    #     memory_e.add_ai_message(ai_response)
-    #     entity_mem.extract_and_update(q, ai_response)
-    #     print(f"\nAgent: {ai_response[:400]}")
-    #     print(f"[实体记忆: {entity_mem.entity_count} 个实体]")
+    entity_mem = EntityMemory(llm=llm)
+    memory_e = ConversationMemory(max_turns=10)
+    for q in [
+        "介绍一下 Neuralink",
+        "BrainCo 和它比怎么样？",
+        "Synchron 呢？",
+        "这三家公司里谁最有可能上市？",
+    ]:
+        print(f"\n{'='*60}")
+        print(f"用户: {q}")
+        print(f"{'='*60}")
+        entity_context = entity_mem.get_relevant_context(q)
+        augmented_query = f"{q}\n\n[背景参考]\n{entity_context}" if entity_context else q
+        memory_e.add_user_message(augmented_query)
+        result = agent.invoke({
+            "messages": [
+                {"role": _get_role(m), "content": m.content}
+                for m in memory_e.get_messages()
+            ]
+        })
+        ai_response = result["messages"][-1].content
+        memory_e.add_ai_message(ai_response)
+        entity_mem.extract_and_update(q, ai_response)
+        print(f"\nAgent: {ai_response[:400]}")
+        print(f"[实体记忆: {entity_mem.entity_count} 个实体]")
 
     # ── 4. Long-Term Vector Memory ────────────────────────────
     # ltm = LongTermMemory(persist_dir="chroma_db")
