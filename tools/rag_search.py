@@ -1,7 +1,9 @@
 from langchain_core.tools import tool
 from rag.vectorstore import search
+from utils.tool_registry import register
 
 
+@register(timeout_seconds=15)
 @tool
 def search_bci_docs(query: str) -> str:
     """从 BCI 研究报告和论文中检索相关信息。用于回答脑机接口技术、公司、市场等问题。"""

@@ -1,6 +1,8 @@
 from langchain_core.tools import tool
+from utils.tool_registry import register
 
 
+@register(timeout_seconds=15)
 @tool
 def search_bci_company(company_name: str) -> str:
     """搜索 BCI 公司的基本信息"""

@@ -1,5 +1,8 @@
 from langchain_core.tools import tool
+from utils.tool_registry import register
 
+
+@register(timeout_seconds=15)
 @tool
 def get_bci_news(topic: str) -> str:
     """获取 BCI 脑机接口领域的最新新闻"""

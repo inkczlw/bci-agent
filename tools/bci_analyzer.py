@@ -10,7 +10,10 @@ from rag.vectorstore import search
 from schemas.bci_models import BCICompanyAnalysis
 from utils.result_store import save_analysis
 
+from utils.tool_registry import register
 
+
+@register(timeout_seconds=15)
 @tool
 def analyze_bci_company(company_name: str) -> str:
     """分析 BCI 公司，返回结构化 JSON 报告。"""

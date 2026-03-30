@@ -9,8 +9,10 @@ from config import get_llm
 from rag.vectorstore import search
 from schemas.bci_models import BCICompanyComparison
 from utils.result_store import save_analysis
+from utils.tool_registry import register
 
 
+@register(timeout_seconds=15)
 @tool
 def compare_bci_companies(company_a: str, company_b: str) -> str:
     """对比两家 BCI 公司的技术路线、竞争优势和市场定位。需要提供两个公司名称。"""
