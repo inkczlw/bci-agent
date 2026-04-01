@@ -1,9 +1,11 @@
+from pathlib import Path
 import chromadb
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
-_client = chromadb.PersistentClient(path="./chroma_db")
-_embedding_fn = DefaultEmbeddingFunction()
 
+_db_path = str(Path(__file__).parent.parent / "chroma_db")
+_client = chromadb.PersistentClient(path=_db_path)
+_embedding_fn = DefaultEmbeddingFunction()
 
 def build_vectorstore(chunks: list, collection_name: str = "bci_docs"):
     """把 chunk 存入 Chroma 向量数据库"""
