@@ -6,11 +6,6 @@
 - GET  /health     — 健康检查
 - GET  /metrics    — 运行指标
 
-面试叙事：
-- 为什么选 FastAPI：async 原生支持、自动生成 OpenAPI 文档、
-  Pydantic 校验 request/response、性能（底层 uvicorn/ASGI）
-- C++ 类比：FastAPI 的 ASGI 相当于 epoll/io_uring 的事件循环，
-  每个请求是一个 coroutine 而不是线程——跟 C++ 的 co_await 类似
 
 启动方式：
     uvicorn api.server:app --host 0.0.0.0 --port 8000 --reload
@@ -98,8 +93,6 @@ async def lifespan(app: FastAPI):
     - startup: 初始化 Agent、Tracer、Metrics
     - shutdown: 优雅关闭（flush logs、保存 metrics）
 
-    面试点：这就是 C++ RAII 的 Python 版本——资源在 context manager
-    的 __aenter__ 里获取，__aexit__ 里释放。
     """
     # ── Startup ──
     logger.info("Initializing BCI Agent API...")
@@ -328,7 +321,6 @@ async def get_metrics():
 def setup_signal_handlers():
     """注册信号处理器，支持优雅关闭。
 
-    面试点：生产服务不能直接 kill -9。
     收到 SIGTERM 后要：
     1. 停止接收新请求（rate limiter 返回 503）
     2. 等待正在处理的请求完成
