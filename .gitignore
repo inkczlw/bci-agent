@@ -1,0 +1,6 @@
+__pycache__/
+.DS_Store
+.env
+chroma_db/
+data/bci_agent.db
+evaluation/results/
